@@ -73,12 +73,12 @@
   "Install leetcode dependencies."
   (let ((async-shell-command-display-buffer t))
     (async-shell-command
-     "pip3 install my_cookies"
+     "python -m venv $HOME && source $HOME/bin/activate && pip3 install my_cookies"
      (get-buffer-create "*leetcode-install*"))))
 
 (defun leetcode--check-deps ()
   "Check if all dependencies installed."
-  (if (executable-find "my_cookies")
+  (if (executable-find (format "%s/bin/my_cookies" (getenv "HOME")))
       t
     (leetcode--install-my-cookie)
     nil))
